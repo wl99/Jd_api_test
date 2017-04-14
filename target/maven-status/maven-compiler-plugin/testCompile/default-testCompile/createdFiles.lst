@@ -1,8 +1,0 @@
-JdClassroomResourcePublicTest.class
-base\RefreshUserToken.class
-JdPublicResourceTest.class
-base\SetBaseServer.class
-JdQuestionResourceTest.class
-base\GetUserToken.class
-base\GetAdminToken.class
-support\WriteAndReadFile.class
