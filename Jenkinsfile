@@ -1,13 +1,11 @@
 stage 'Download'
-node {
-     git 'http://git.afubx.com/jiadao/Jd-api-test.git'    
-     sh "mvn clean"
-	 
+node {  
+     sh "mvn clean"	 
      stash excludes: 'target/', includes: '**', name: 'source'
 }
 stage 'Test'
 node {
-     unstash 'source'     
+     unstash 'source'  
      sh "mvn test"
      sh "mvn site"     
      stash includes: '**', name: 'report'
