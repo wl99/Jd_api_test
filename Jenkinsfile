@@ -1,14 +1,15 @@
-stage 'Download'
-node {  
-     sh "mvn clean"	 
-     stash excludes: 'target/', includes: '**', name: 'source'
+stage 'Clean'
+node { 
+	sh "pwd"
+    sh "mvn clean"	 
+    stash excludes: 'target/', includes: '**', name: 'source'
 }
 stage 'Test'
 node {
-     unstash 'source'  
-     sh "mvn test"
-     sh "mvn site"     
-     stash includes: '**', name: 'report'
+    unstash 'source'  
+    sh "mvn test"
+    sh "mvn site"     
+    stash includes: '**', name: 'report'
 }
 stage 'Reports'
 node {
