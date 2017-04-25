@@ -7,6 +7,7 @@ import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
 import ru.yandex.qatools.allure.annotations.Title;
 
+import static base.GetUserToken.getUserToken;
 import static io.restassured.RestAssured.given;
 import static support.WriteAndReadFile.readFile;
 
@@ -23,7 +24,7 @@ public class JdSharePolicyTest extends SetBaseServer {
 
     @Before
     public void setUp() throws Exception {
-        //getUserToken(loginNo);
+        getUserToken(loginNo);
         USRTOKEN = readFile(loginNo + "_AccessToken.json");
 
     }
