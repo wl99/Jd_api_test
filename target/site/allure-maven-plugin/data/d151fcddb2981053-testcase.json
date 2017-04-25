@@ -1,0 +1,50 @@
+{
+  "uid" : "d151fcddb2981053",
+  "name" : "sendErrorPhoneNumTest",
+  "title" : "验证发送验证码接口",
+  "time" : {
+    "start" : 1493092866811,
+    "stop" : 1493092866889,
+    "duration" : 78
+  },
+  "summary" : {
+    "attachments" : 0,
+    "steps" : 0
+  },
+  "failure" : null,
+  "description" : {
+    "value" : "使用错误手机号1860653537发送验证码并验证返回信息",
+    "type" : "TEXT"
+  },
+  "severity" : "NORMAL",
+  "status" : "PASSED",
+  "suite" : {
+    "uid" : "d822616a9ad1bf67",
+    "name" : "JdPublicResourceTest",
+    "title" : "驾到免认证服务接口"
+  },
+  "steps" : [ ],
+  "attachments" : [ ],
+  "issues" : [ ],
+  "testIds" : [ ],
+  "labels" : [ {
+    "name" : "framework",
+    "value" : "JUnit"
+  }, {
+    "name" : "language",
+    "value" : "JAVA"
+  }, {
+    "name" : "host",
+    "value" : "PC201608211610"
+  }, {
+    "name" : "thread",
+    "value" : "9212@PC201608211610.main(1)"
+  }, {
+    "name" : "suite-name",
+    "value" : "JdPublicResourceTest"
+  }, {
+    "name" : "suite-title",
+    "value" : "驾到免认证服务接口"
+  } ],
+  "parameters" : [ ]
+}

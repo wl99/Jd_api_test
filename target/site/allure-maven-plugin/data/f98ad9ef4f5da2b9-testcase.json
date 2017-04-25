@@ -1,0 +1,53 @@
+{
+  "uid" : "f98ad9ef4f5da2b9",
+  "name" : "sendErrorRefreshTokenTest",
+  "title" : "刷新TOKEN接口",
+  "time" : {
+    "start" : 1493092866890,
+    "stop" : 1493092867086,
+    "duration" : 196
+  },
+  "summary" : {
+    "attachments" : 0,
+    "steps" : 0
+  },
+  "failure" : null,
+  "description" : {
+    "value" : "使用错误参数调用接口，并验证返回信息",
+    "type" : "TEXT"
+  },
+  "severity" : "BLOCKER",
+  "status" : "PASSED",
+  "suite" : {
+    "uid" : "d822616a9ad1bf67",
+    "name" : "JdPublicResourceTest",
+    "title" : "驾到免认证服务接口"
+  },
+  "steps" : [ ],
+  "attachments" : [ ],
+  "issues" : [ ],
+  "testIds" : [ ],
+  "labels" : [ {
+    "name" : "framework",
+    "value" : "JUnit"
+  }, {
+    "name" : "language",
+    "value" : "JAVA"
+  }, {
+    "name" : "host",
+    "value" : "PC201608211610"
+  }, {
+    "name" : "thread",
+    "value" : "9212@PC201608211610.main(1)"
+  }, {
+    "name" : "suite-name",
+    "value" : "JdPublicResourceTest"
+  }, {
+    "name" : "suite-title",
+    "value" : "驾到免认证服务接口"
+  }, {
+    "name" : "severity",
+    "value" : "blocker"
+  } ],
+  "parameters" : [ ]
+}

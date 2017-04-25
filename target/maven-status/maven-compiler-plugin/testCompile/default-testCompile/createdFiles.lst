@@ -1,0 +1,10 @@
+JdClassroomResourcePublicTest.class
+base\RefreshUserToken.class
+JdPublicResourceTest.class
+base\SetBaseServer.class
+JdQuestionResourceTest.class
+base\GetUserToken.class
+base\GetAdminToken.class
+JdSharePolicyTest.class
+support\WriteAndReadFile.class
+base\MongodbBaseTest.class

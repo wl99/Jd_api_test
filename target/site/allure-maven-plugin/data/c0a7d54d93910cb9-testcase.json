@@ -1,0 +1,56 @@
+{
+  "uid" : "c0a7d54d93910cb9",
+  "name" : "getUserPolicyTest",
+  "title" : "查询用户保单",
+  "time" : {
+    "start" : 1493092868754,
+    "stop" : 1493092868808,
+    "duration" : 54
+  },
+  "summary" : {
+    "attachments" : 0,
+    "steps" : 0
+  },
+  "failure" : null,
+  "description" : {
+    "value" : "默认查询用户保单数据",
+    "type" : "TEXT"
+  },
+  "severity" : "NORMAL",
+  "status" : "PASSED",
+  "suite" : {
+    "uid" : "a555566d973c8ff6",
+    "name" : "JdSharePolicyTest",
+    "title" : "共管保单相关接口"
+  },
+  "steps" : [ ],
+  "attachments" : [ ],
+  "issues" : [ ],
+  "testIds" : [ ],
+  "labels" : [ {
+    "name" : "framework",
+    "value" : "JUnit"
+  }, {
+    "name" : "language",
+    "value" : "JAVA"
+  }, {
+    "name" : "host",
+    "value" : "PC201608211610"
+  }, {
+    "name" : "thread",
+    "value" : "9212@PC201608211610.main(1)"
+  }, {
+    "name" : "story",
+    "value" : "查询接口"
+  }, {
+    "name" : "feature",
+    "value" : "保单"
+  }, {
+    "name" : "suite-name",
+    "value" : "JdSharePolicyTest"
+  }, {
+    "name" : "suite-title",
+    "value" : "共管保单相关接口"
+  } ],
+  "parameters" : [ ]
+}
