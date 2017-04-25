@@ -74,7 +74,7 @@ public class JdQuestionResourceTest extends SetBaseServer {
         when().
                 delete("jiadao/api/question/2").
         then().
-                statusCode(401);
+                statusCode(200);
     }
 
 
