@@ -3,7 +3,6 @@ package base;
 import io.restassured.path.json.exception.JsonPathException;
 import io.restassured.response.Response;
 
-import java.io.File;
 import java.io.IOException;
 
 import static io.restassured.RestAssured.given;
@@ -29,10 +28,10 @@ public class GetAdminToken extends SetBaseServer {
                 response();
         String ACCES_TOKEN = response.path("access_token");
         String TOKEN = "Bearer " + ACCES_TOKEN;
-        String path = System.getProperty("user.dir") + File.separator + "jsondir" + File.separator;
+//        String path = System.getProperty("user.dir") + File.separator + "jsondir" + File.separator;
 
 //        System.out.println(path);
-        writeFile(path + "adminToken.json", TOKEN);
+        writeFile("adminToken.json", TOKEN);
 
 //        String adminToken = readFile(path + "adminToken.json");
 //        System.out.println(adminToken);

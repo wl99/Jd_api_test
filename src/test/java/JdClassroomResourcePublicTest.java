@@ -1,5 +1,7 @@
 import base.SetBaseServer;
 import org.junit.Test;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Title;
 
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
@@ -7,7 +9,11 @@ import static org.hamcrest.Matchers.equalTo;
 /**
  * Created by Administrator on 2017/4/6.
  */
+@Title("保险课堂免认证接口API")
 public class JdClassroomResourcePublicTest extends SetBaseServer {
+
+    @Title("分页查询所有课堂")
+    @Description("使用默认参数查询接口，验证返回信息")
     @Test
     public void searchAllClassroomTest() throws Exception {
         when().
@@ -18,6 +24,8 @@ public class JdClassroomResourcePublicTest extends SetBaseServer {
 
     }
 
+    @Title("分页查询所有推荐课堂")
+    @Description("使用默认参数查询接口，并验证返回信息")
     @Test
     public void searchAllRecommendClassroom() throws Exception {
 
@@ -29,6 +37,8 @@ public class JdClassroomResourcePublicTest extends SetBaseServer {
 
     }
 
+    @Title("删除保险课堂接口")
+    @Description("传入错误的课堂ID，验证接口返回信息")
     @Test
     public void notFoundClassroom() throws Exception {
 

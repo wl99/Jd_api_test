@@ -11,7 +11,8 @@ import java.io.*;
 public class WriteAndReadFile {
     public static void writeFile(String filePath, String sets)
             throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+        String basePath = System.getProperty("user.dir") + File.separator + "jsondir" + File.separator;
+        FileWriter fw = new FileWriter(basePath + filePath);
         PrintWriter out = new PrintWriter(fw);
         out.write(sets);
         out.println();
@@ -20,7 +21,8 @@ public class WriteAndReadFile {
     }
 
     public static String readFile(String path) {
-        File file = new File(path);
+        String basePath = System.getProperty("user.dir") + File.separator + "jsondir" + File.separator;
+        File file = new File(basePath + path);
         BufferedReader reader = null;
         String laststr = "";
         try {
