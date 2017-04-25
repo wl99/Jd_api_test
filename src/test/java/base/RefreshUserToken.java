@@ -2,6 +2,7 @@ package base;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.Ignore;
 
 import java.io.File;
 
@@ -13,6 +14,8 @@ import static support.WriteAndReadFile.writeFile;
 /**
  * Created by Administrator on 2017/4/12.
  */
+
+@Ignore
 public class RefreshUserToken extends SetBaseServer {
 
     public void refreshUserToken(String loginNo) throws Exception {

@@ -2,11 +2,12 @@ package base;
 
 import io.restassured.RestAssured;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 
 /**
  * Created by Administrator on 2017/4/6.
  */
-
+@Ignore
 public class SetBaseServer {
 
     @BeforeClass

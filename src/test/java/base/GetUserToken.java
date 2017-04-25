@@ -2,6 +2,7 @@ package base;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.Ignore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +14,7 @@ import static support.WriteAndReadFile.writeFile;
 /**
  * Created by Administrator on 2017/4/11.
  */
+@Ignore
 public class GetUserToken extends SetBaseServer {
 
 

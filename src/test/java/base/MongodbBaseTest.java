@@ -9,7 +9,7 @@ import org.junit.Ignore;
  */
 @Ignore
 public class MongodbBaseTest {
-    public static void main(String args[]) {
+    public static void test() {
         try {
             // 连接到 mongodb 服务
             MongoClient mongoClient = new MongoClient("192.168.0.202", 27018);

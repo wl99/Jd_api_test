@@ -2,6 +2,7 @@ package base;
 
 import io.restassured.path.json.exception.JsonPathException;
 import io.restassured.response.Response;
+import org.junit.Ignore;
 
 import java.io.IOException;
 
@@ -12,6 +13,7 @@ import static support.WriteAndReadFile.writeFile;
 /**
  * Created by Administrator on 2017/4/10.
  */
+@Ignore
 public class GetAdminToken extends SetBaseServer {
 
     public  void getAdmintoken() throws JsonPathException, IOException {
