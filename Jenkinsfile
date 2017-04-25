@@ -1,5 +1,6 @@
-stage 'Clean'
+stage 'Checkout'
 node { 
+	checkout scm
 	sh "pwd"
 	sh "ls -l"
     sh "mvn clean"	 
