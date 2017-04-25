@@ -24,6 +24,5 @@ stage 'Send mail'
 node {
     emailext(body: '${DEFAULT_CONTENT}', mimeType: 'text/html',
          replyTo: '$DEFAULT_REPLYTO', subject: '${DEFAULT_SUBJECT}',
-         to: emailextrecipients([[$class: 'CulpritsRecipientProvider'],
-                                 [$class: 'RequesterRecipientProvider']]))
+         to: '$DEFAULT_RECIPIENTS')
 }
