@@ -1,6 +1,7 @@
 stage 'Clean'
 node { 
 	sh "pwd"
+	sh "ls -l"
     sh "mvn clean"	 
     stash excludes: 'target/', includes: '**', name: 'source'
 }
