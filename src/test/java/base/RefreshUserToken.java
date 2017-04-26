@@ -37,8 +37,8 @@ public class RefreshUserToken extends SetBaseServer {
             getUserToken(loginNo);
         }else {
             //获取accessToken，refreshToken，并更新文件
-            writeFile(path + loginNo + "_AccessToken",response.getBody().jsonPath().getString("result.access_token"));
-            writeFile(path + loginNo + "_RefreshToken",response.getBody().jsonPath().getString("result.refresh_token"));
+            writeFile(path + loginNo + "_AccessToken" , "Bearer " + response.getBody().jsonPath().getString("result.access_token"));
+            writeFile(path + loginNo + "_RefreshToken" , response.getBody().jsonPath().getString("result.refresh_token"));
 
         }
 

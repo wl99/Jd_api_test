@@ -5,6 +5,7 @@ import ru.yandex.qatools.allure.annotations.Title;
 
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
 
 /**
  * Created by Administrator on 2017/4/6.
@@ -25,7 +26,7 @@ public class JdClassroomResourcePublicTest extends SetBaseServer {
     }
 
     @Title("分页查询所有推荐课堂")
-    @Description("使用默认参数查询接口，并验证返回信息")
+    @Description("使用默认参数查询接口，并验证is_recommend的是否为‘true’")
     @Test
     public void searchAllRecommendClassroom() throws Exception {
 
@@ -33,11 +34,14 @@ public class JdClassroomResourcePublicTest extends SetBaseServer {
                 get("/jiadao/api/public/classroom/recommend").
         then().
                 statusCode(200).
-                body("code",equalTo("0"));
+        and().
+                body("code",equalTo("0")).
+                body("result*.is_recommend",hasItems(true));
+
 
     }
 
-    @Title("删除保险课堂接口")
+    @Title("查询保险课堂详细信息接口")
     @Description("传入错误的课堂ID，验证接口返回信息")
     @Test
     public void notFoundClassroom() throws Exception {

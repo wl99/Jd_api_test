@@ -20,6 +20,7 @@ public class GetUserToken extends SetBaseServer {
 
     public static void getUserToken(String loginNo) throws Exception {
 
+
 //        String path = System.getProperty("user.dir") + File.separator + "jsondir" + File.separator;
         String TOKEN = readFile("adminToken.json").toString();
 
@@ -69,5 +70,6 @@ public class GetUserToken extends SetBaseServer {
         writeFile(loginNo + "_AccessToken.json", userAccessToken);
         writeFile(loginNo + "_RefreshToken.json",userRefreshToken);
     }
+
 
 }

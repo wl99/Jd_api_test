@@ -5,7 +5,6 @@ import org.junit.Test;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Title;
 
-import static base.GetUserToken.getUserToken;
 import static io.restassured.RestAssured.given;
 import static support.WriteAndReadFile.readFile;
 
@@ -18,24 +17,10 @@ public class JdQuestionResourceTest extends SetBaseServer {
 
     String USER_TOKEN = null;
     String loginNo = "18606535378";
- //   private DBCollection col;
-
 
     @Before
     public void setUp() throws Exception {
-        getUserToken(loginNo);
-//        String path = System.getProperty("user.dir") + File.separator + "jsondir" + File.separator;
         USER_TOKEN = readFile(loginNo + "_AccessToken.json");
-
-//        // 连接到 mongodb 服务
-//        MongoClient mongoClient = new MongoClient("192.168.0.202", 27018);
-//
-//        // 连接到数据库
-//        //MongoDatabase mongoDatabase = mongoClient.getDatabase("jiadao");
-//        DB datebase = mongoClient.getDB("jiadao");
-//
-//        //连接表
-//        col = datebase.getCollection("jd_question");
     }
 
     @Title("新增问题接口")
@@ -56,12 +41,6 @@ public class JdQuestionResourceTest extends SetBaseServer {
         then().
                 statusCode(200);
 
-//        BasicDBObject query = new BasicDBObject("title","API回归测试数据");
-//        DBObject cursor = col.findOne(query);
-//
-//        System.out.println(cursor);
-
-
     }
 
     @Title("删除问题接口")
@@ -71,6 +50,7 @@ public class JdQuestionResourceTest extends SetBaseServer {
 
         given().
                 contentType(ContentType.JSON).
+                header("Authorization", USER_TOKEN).
         when().
                 delete("jiadao/api/question/2").
         then().

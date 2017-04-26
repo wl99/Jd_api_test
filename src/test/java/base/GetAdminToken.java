@@ -16,7 +16,7 @@ import static support.WriteAndReadFile.writeFile;
 @Ignore
 public class GetAdminToken extends SetBaseServer {
 
-    public  void getAdmintoken() throws JsonPathException, IOException {
+    public  void getAdminTtoken() throws JsonPathException, IOException {
         //登录admin帐号获取token
 
 
@@ -30,14 +30,8 @@ public class GetAdminToken extends SetBaseServer {
                 response();
         String ACCES_TOKEN = response.path("access_token");
         String TOKEN = "Bearer " + ACCES_TOKEN;
-//        String path = System.getProperty("user.dir") + File.separator + "jsondir" + File.separator;
 
-//        System.out.println(path);
         writeFile("adminToken.json", TOKEN);
-
-//        String adminToken = readFile(path + "adminToken.json");
-//        System.out.println(adminToken);
-
     }
 
 

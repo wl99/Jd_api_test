@@ -1,5 +1,9 @@
 import base.SetBaseServer;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Severity;
 import ru.yandex.qatools.allure.annotations.Title;
@@ -8,12 +12,15 @@ import ru.yandex.qatools.allure.model.SeverityLevel;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
+import static support.WriteAndReadFile.readFile;
+import static support.WriteAndReadFile.writeFile;
 
 /**
  * Created by Administrator on 2017/4/6.
  */
 
 @Title("驾到免认证服务接口")
+@FixMethodOrder(MethodSorters.DEFAULT)
 public class JdPublicResourceTest extends SetBaseServer {
 
     @Title("验证发送验证码接口")
@@ -55,10 +62,10 @@ public class JdPublicResourceTest extends SetBaseServer {
     }
 
     @Severity(SeverityLevel.BLOCKER)
-    @Title("刷新TOKEN接口")
-    @Description("使用错误参数调用接口，并验证返回信息")
+    @Title("错误参数刷新TOKEN接口")
+    @Description("使用错误参数error调用接口，并验证返回信息")
     @Test
-    public void sendErrorRefreshTokenTest() {
+    public void sendErrorRefreshTokenTest() throws Exception {
         when().
                 post("/jiadao/api/public/refreshToken?refreshToken=error").
         then().
@@ -66,5 +73,57 @@ public class JdPublicResourceTest extends SetBaseServer {
         and().
                 body("code",equalTo("400401")).
                 body("msg",equalTo("refresh_token不合法或已过期"));
+    }
+
+    @Severity(SeverityLevel.NORMAL)
+    @Title("验证是否刷新Token成功")
+    @Description("使用18606535378帐号正确未过期的Token刷新，并验证返回信息")
+    @Test
+    public void sendRightRefreshTokenTest() throws Exception {
+        String RefreshToken = readFile("18606535378_RefreshToken.json");
+
+        Response response =given().
+                                    contentType(ContentType.JSON).
+                                    queryParam("refreshToken",RefreshToken).
+                            when().
+                                    post("/jiadao/api/public/refreshToken").
+                            then().
+                                    statusCode(200).
+                                    body("code",equalTo("0")).
+                                    body("msg",equalTo("操作成功")).
+                            extract().
+                                    response();
+
+        writeFile("18606535378_AccessToken.json", "Bearer " + response.getBody().jsonPath().getString("result.access_token"));
+        writeFile("18606535378_RefreshToken.json",response.getBody().jsonPath().getString("result.refresh_token"));
+
+    }
+
+    @Title("获取驾到所有保险类型分类")
+    @Description("查询保险类型分类")
+    @Test
+    public void searchAllInsuranceTypesTest() throws Exception {
+
+        when().
+                get("/jiadao/api/public/insuranceTypes").
+        then().
+                statusCode(200).
+        and().
+                body("code",equalTo("0")).
+                body("msg",equalTo("操作成功"));
+    }
+
+    @Title("获取驾到所有业务码")
+    @Description("查询保驾到所有业务码")
+    @Test
+    public void searchAllJdBusinessCodes() throws Exception {
+
+        when().
+                get("/jiadao/api/public/jdBusinessCodes").
+        then().
+                statusCode(200).
+        and().
+                body("code",equalTo("0")).
+                body("msg",equalTo("操作成功"));
     }
 }
