@@ -1,6 +1,7 @@
 import base.SetBaseServer;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -12,6 +13,7 @@ import ru.yandex.qatools.allure.model.SeverityLevel;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
 import static support.WriteAndReadFile.readFile;
 import static support.WriteAndReadFile.writeFile;
 
@@ -107,10 +109,11 @@ public class JdPublicResourceTest extends SetBaseServer {
         when().
                 get("/jiadao/api/public/insuranceTypes").
         then().
-                statusCode(200).
+                statusCode(HttpStatus.SC_OK).
         and().
                 body("code",equalTo("0")).
-                body("msg",equalTo("操作成功"));
+                body("msg",equalTo("操作成功")).
+                body("result*.name",hasItems("意外险"));
     }
 
     @Title("获取驾到所有业务码")
@@ -121,7 +124,7 @@ public class JdPublicResourceTest extends SetBaseServer {
         when().
                 get("/jiadao/api/public/jdBusinessCodes").
         then().
-                statusCode(200).
+                statusCode(HttpStatus.SC_OK).
         and().
                 body("code",equalTo("0")).
                 body("msg",equalTo("操作成功"));

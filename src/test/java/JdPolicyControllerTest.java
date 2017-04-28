@@ -18,10 +18,11 @@ import static support.WriteAndReadFile.readFile;
 public class JdPolicyControllerTest extends SetBaseServer {
 
     String USER_TOKEN = null;
+    String loginNo = "18606535378";
 
     @Before
     public void setUp() {
-        USER_TOKEN = readFile("18606535378_AccessToken.json");
+        USER_TOKEN = readFile(loginNo + "_AccessToken.json");
     }
 
 
@@ -67,5 +68,6 @@ public class JdPolicyControllerTest extends SetBaseServer {
                 body("code",equalTo("0"));
     }
 
+    //TODO 手动新增保单
 
 }

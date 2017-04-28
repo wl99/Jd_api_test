@@ -46,7 +46,7 @@ public class JdSharePolicyTest extends SetBaseServer {
     @Title("查询用户保单")
     @Description("默认查询用户保单数据")
     @Test
-    public void getUserPolicyTest() {
+    public void getUserPolicyTest() throws Exception {
         given().
                 contentType(ContentType.JSON).
                 header("Authorization",USRTOKEN).

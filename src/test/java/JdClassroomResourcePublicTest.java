@@ -17,6 +17,7 @@ public class JdClassroomResourcePublicTest extends SetBaseServer {
     @Description("使用默认参数查询接口，验证返回信息")
     @Test
     public void searchAllClassroomTest() throws Exception {
+
         when().
                 get("/jiadao/api/public/classroom/").
         then().

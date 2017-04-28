@@ -8,6 +8,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         GetGateWayToken.class,
         LoginAndGetTokenTest.class,
+        UserResourceTest.class,
+        JdTopicResource.class,
         JdPublicResourceTest.class,
         JdQuestionResourceTest.class,
         JdClassroomResourcePublicTest.class,
