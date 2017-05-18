@@ -1,3 +1,4 @@
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -8,12 +9,14 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         GetGateWayToken.class,
         LoginAndGetTokenTest.class,
+        JdPublicResourceTest.class,
+        JdInsuranceCompanyTest.class,
         UserResourceTest.class,
         JdTopicResource.class,
-        JdPublicResourceTest.class,
         JdQuestionResourceTest.class,
         JdClassroomResourcePublicTest.class,
         JdPolicyControllerTest.class,
-        JdSharePolicyTest.class})
+        JdSharePolicyTest.class
+})
 public class RunAllTestCase {
 }

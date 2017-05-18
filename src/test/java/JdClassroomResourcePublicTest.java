@@ -1,11 +1,10 @@
-import base.SetBaseServer;
 import org.junit.Test;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Title;
+import base.SetBaseServer;
 
 import static io.restassured.RestAssured.when;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.*;
 
 /**
  * Created by Administrator on 2017/4/6.
@@ -27,7 +26,7 @@ public class JdClassroomResourcePublicTest extends SetBaseServer {
     }
 
     @Title("分页查询所有推荐课堂")
-    @Description("使用默认参数查询接口，并验证is_recommend的是否为‘true’")
+    @Description("使用默认参数查询接口，并验证所有的is_recommend的是否为‘true’")
     @Test
     public void searchAllRecommendClassroom() throws Exception {
 
@@ -37,7 +36,7 @@ public class JdClassroomResourcePublicTest extends SetBaseServer {
                 statusCode(200).
         and().
                 body("code",equalTo("0")).
-                body("result*.is_recommend",hasItems(true));
+                body("result*.is_recommend",not(hasItems(false)));
 
 
     }

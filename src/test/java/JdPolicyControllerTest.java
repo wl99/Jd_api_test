@@ -1,3 +1,4 @@
+
 import base.SetBaseServer;
 import io.restassured.http.ContentType;
 import org.junit.Before;
@@ -8,7 +9,6 @@ import ru.yandex.qatools.allure.annotations.Title;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static support.WriteAndReadFile.readFile;
 
 /**
  * Created by Administrator on 2017/4/26.
@@ -17,12 +17,12 @@ import static support.WriteAndReadFile.readFile;
 @Title("驾到保单相关接口")
 public class JdPolicyControllerTest extends SetBaseServer {
 
-    String USER_TOKEN = null;
-    String loginNo = "18606535378";
+    private String USER_TOKEN = null;
+    private String loginNo = super.loginNo;
 
     @Before
     public void setUp() {
-        USER_TOKEN = readFile(loginNo + "_AccessToken.json");
+        USER_TOKEN = getSaveData(loginNo + "accessToken").toString();
     }
 
 

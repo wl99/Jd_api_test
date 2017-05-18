@@ -1,39 +1,38 @@
+
 import base.SetBaseServer;
 import io.restassured.http.ContentType;
+import org.apache.http.HttpStatus;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Title;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static support.WriteAndReadFile.readFile;
+import static tools.RandomData.getNowTime;
+import static tools.RandomData.getNowTime2;
 
 /**
  * Created by Administrator on 2017/4/7.
  */
 
 @Title("问题相关接口测试")
+@FixMethodOrder(MethodSorters.DEFAULT)
 public class JdQuestionResourceTest extends SetBaseServer {
 
-    String USER_TOKEN = null;
-    String loginNo = "18606535378";
-    String time = null;
-    String adminToken = null;
+    private String USER_TOKEN = null;
+    private String loginNo = super.loginNo;
+    private String adminToken = null;
 
     @Before
     public void setUp() throws Exception {
-        USER_TOKEN = readFile(loginNo + "_AccessToken.json");
-        adminToken = readFile("adminToken.json");
-        Date now = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd HH:mm");
-        time = dateFormat.format(now);
+        USER_TOKEN = getSaveData(loginNo + "accessToken").toString();
+        adminToken = getSaveData("adminToken").toString();
     }
 
     @Title("用户新增问题接口")
@@ -43,6 +42,7 @@ public class JdQuestionResourceTest extends SetBaseServer {
 
 
         //读取文件获取最新的话题
+        /**
         String topic = readFile("allTopics.json");
         String a = topic.substring(1,topic.length()-1);
         String[] b = a.split(",");
@@ -54,13 +54,18 @@ public class JdQuestionResourceTest extends SetBaseServer {
             list.add(c);
         }
 
-        //随机获取一个话题
-        String useTopic = list.get(new Random().nextInt(list.size()));
+         //随机获取一个话题
+         String useTopic = list.get(new Random().nextInt(list.size()));
+         */
+        List<String> a = (List) saveDatas.get("topic");
+        String b = a.get(new Random().nextInt(a.size()));
 
-        String questionDTO = "{\"describe\":\"这是自动化回归测试生成数据\"," +
-                "\"title\":\"API回归测试数据"+ time +"\"," +
+
+
+        String questionDTO = "{\"describe\":\"自动化回归测试标题" + getNowTime() + "\"," +
+                "\"title\":\"API回归测试数据描述"+ getNowTime2()  +"\"," +
                 "\"topicIds\":" +
-                "[\""+ useTopic +"\"]}";
+                "[\""+ b +"\"]}";
 
         given().
                 contentType(ContentType.JSON).
@@ -74,10 +79,45 @@ public class JdQuestionResourceTest extends SetBaseServer {
 
     }
 
+    @Title("查询我的问题列表")
+    @Description("查询我的问题列表，保存列表中的问题id")
+    @Test
+    public void myQuestions() throws Exception{
+        List questions = given().
+                contentType(ContentType.JSON).
+                header("Authorization",USER_TOKEN).
+        when().
+                get("/jiadao/api/question/myQuestions").
+        then().
+                statusCode(HttpStatus.SC_OK).
+        extract().
+                body().jsonPath().
+                getList("result*.id");
+
+        saveDatas.put(loginNo + "questionLis",questions);
+
+    }
+
+    @Title("查询我的问题总数统计")
+    @Test
+    public void countAnswer() throws Exception{
+        String loginID = getSaveData(loginNo + "loginID").toString();
+
+        given().
+                contentType(ContentType.JSON).
+                header("Authorization",USER_TOKEN).
+        when().
+                get("/jiadao/api/question/count/" + loginID).
+        then().
+                statusCode(HttpStatus.SC_OK);
+    }
+
     @Title("删除问题接口")
     @Description("使用不存在的问题ID，验证返回信息")
     @Test()
     public void delQuestion() throws Exception {
+
+
 
         given().
                 contentType(ContentType.JSON).

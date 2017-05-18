@@ -1,9 +1,10 @@
-import base.SetBaseServer;
+
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Title;
+import base.SetBaseServer;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;

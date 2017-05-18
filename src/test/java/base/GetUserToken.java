@@ -3,13 +3,12 @@ package base;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Ignore;
+import support.WriteAndReadFile;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static support.WriteAndReadFile.readFile;
-import static support.WriteAndReadFile.writeFile;
 
 /**
  * Created by Administrator on 2017/4/11.
@@ -22,7 +21,7 @@ public class GetUserToken extends SetBaseServer {
 
 
 //        String path = System.getProperty("user.dir") + File.separator + "jsondir" + File.separator;
-        String TOKEN = readFile("adminToken.json").toString();
+        String TOKEN = WriteAndReadFile.readFile("adminToken.json").toString();
 
 //        Map<String, Object> phoneNo = new HashMap<>();
 //        phoneNo.put("mobilePhone", loginNo);
@@ -67,8 +66,8 @@ public class GetUserToken extends SetBaseServer {
         //response1.getBody().prettyPrint();
         String userAccessToken = "Bearer " + response1.getBody().jsonPath().getString("result.access_token");
         String userRefreshToken = response1.getBody().jsonPath().getString("result.refresh_token");
-        writeFile(loginNo + "_AccessToken.json", userAccessToken);
-        writeFile(loginNo + "_RefreshToken.json",userRefreshToken);
+        WriteAndReadFile.writeFile(loginNo + "_AccessToken.json", userAccessToken);
+        WriteAndReadFile.writeFile(loginNo + "_RefreshToken.json",userRefreshToken);
     }
 
 

@@ -1,19 +1,19 @@
-import base.SetBaseServer;
+
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
 import org.junit.Before;
 import org.junit.Test;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Severity;
 import ru.yandex.qatools.allure.annotations.Title;
 import ru.yandex.qatools.allure.model.SeverityLevel;
+import base.SetBaseServer;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static support.WriteAndReadFile.readFile;
-import static support.WriteAndReadFile.writeFile;
 
 /**
  * Created by Administrator on 2017/4/26.
@@ -21,12 +21,12 @@ import static support.WriteAndReadFile.writeFile;
 
 @Title("登录系统获取用户Token")
 public class LoginAndGetTokenTest extends SetBaseServer {
-    String TOKEN = null;
-    String loginNo = "18606535378";
+    private String TOKEN = null;
+    private String loginNo = super.loginNo;
 
     @Before
     public void setUp() {
-        TOKEN = readFile("adminToken.json");
+        TOKEN = getSaveData("adminToken").toString();
     }
 
     @Severity(SeverityLevel.BLOCKER)
@@ -53,9 +53,11 @@ public class LoginAndGetTokenTest extends SetBaseServer {
         String verifyCode = given().
                         header("Authorization", TOKEN).
                 when().
-                        get("/commonservice/api/findSmsRecords?phoneNumber=" + loginNo).
+                        get("jdcommonservice/api/findSmsRecords?phoneNumber=" + loginNo).
                 then().
-                        extract().jsonPath().
+                        statusCode(200).
+                extract().
+                        jsonPath().
                         getString("[0].smsContent").
                         substring(0, 6);
 
@@ -72,16 +74,22 @@ public class LoginAndGetTokenTest extends SetBaseServer {
                 when().
                 post("/jiadao/api/public/verifyCodeLogin").
                 then().
+                statusCode(HttpStatus.SC_OK).
                 extract().response();
 
         //response1.getBody().prettyPrint();
         String userAccessToken = "Bearer " + response1.getBody().jsonPath().getString("result.access_token");
         String userRefreshToken = response1.getBody().jsonPath().getString("result.refresh_token");
 
-        writeFile(loginNo + "_AccessToken.json", userAccessToken);
+        //存入公共参数中
+        saveDatas.put(loginNo + "accessToken",userAccessToken);
+        saveDatas.put(loginNo + "refreshToken",userRefreshToken);
+//        System.out.println(saveDatas);
 
-        //刷新Token写入文件
-        writeFile(loginNo + "_RefreshToken.json",userRefreshToken);
+//        WriteAndReadFile.writeFile(loginNo + "_AccessToken.json", userAccessToken);
+//
+//        //刷新Token写入文件
+//        WriteAndReadFile.writeFile(loginNo + "_RefreshToken.json",userRefreshToken);
 
     }
 }

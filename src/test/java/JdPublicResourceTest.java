@@ -14,8 +14,6 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
-import static support.WriteAndReadFile.readFile;
-import static support.WriteAndReadFile.writeFile;
 
 /**
  * Created by Administrator on 2017/4/6.
@@ -25,12 +23,14 @@ import static support.WriteAndReadFile.writeFile;
 @FixMethodOrder(MethodSorters.DEFAULT)
 public class JdPublicResourceTest extends SetBaseServer {
 
+    private String loginNo = super.loginNo;
+
     @Title("验证发送验证码接口")
     @Description("使用18606535378发送验证码，验证是否发送成功")
     @Test
     public void sendLoginVerifyCodeTest() throws Exception {
         final String json;
-        json = "{\"mobilePhone\":\"18606535378\"}";
+        json = "{\"mobilePhone\":\"" + loginNo +"\"}";
 
         given().
                 contentType("application/json").
@@ -82,7 +82,7 @@ public class JdPublicResourceTest extends SetBaseServer {
     @Description("使用18606535378帐号正确未过期的Token刷新，并验证返回信息")
     @Test
     public void sendRightRefreshTokenTest() throws Exception {
-        String RefreshToken = readFile("18606535378_RefreshToken.json");
+        String RefreshToken = getSaveData(loginNo + "refreshToken").toString();
 
         Response response =given().
                                     contentType(ContentType.JSON).
@@ -96,8 +96,14 @@ public class JdPublicResourceTest extends SetBaseServer {
                             extract().
                                     response();
 
-        writeFile("18606535378_AccessToken.json", "Bearer " + response.getBody().jsonPath().getString("result.access_token"));
-        writeFile("18606535378_RefreshToken.json",response.getBody().jsonPath().getString("result.refresh_token"));
+
+        String accessToken = "Bearer " + response.getBody().jsonPath().getString("result.access_token");
+        String refreshToken = response.getBody().jsonPath().getString("result.refresh_token");
+
+        saveDatas.put("accessToken",accessToken);
+        saveDatas.put("refreshToken",refreshToken);
+
+        System.out.println(saveDatas);
 
     }
 
@@ -113,7 +119,7 @@ public class JdPublicResourceTest extends SetBaseServer {
         and().
                 body("code",equalTo("0")).
                 body("msg",equalTo("操作成功")).
-                body("result*.name",hasItems("意外险"));
+                body("result*.name",hasItems("意外险","健康险"));
     }
 
     @Title("获取驾到所有业务码")

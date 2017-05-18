@@ -1,3 +1,4 @@
+
 import base.SetBaseServer;
 import io.restassured.http.ContentType;
 import org.junit.Before;
@@ -8,7 +9,6 @@ import ru.yandex.qatools.allure.annotations.Stories;
 import ru.yandex.qatools.allure.annotations.Title;
 
 import static io.restassured.RestAssured.given;
-import static support.WriteAndReadFile.readFile;
 
 /**
  * Created by Administrator on 2017/4/18.
@@ -17,14 +17,15 @@ import static support.WriteAndReadFile.readFile;
 
 @Title("共管保单相关接口")
 public class JdSharePolicyTest extends SetBaseServer {
-    String USRTOKEN = null;
-    String loginNo = "18606535378";
+    private String token = null;
+    private String loginNo = super.loginNo;
 
 
     @Before
     public void setUp() throws Exception {
         //getUserToken(loginNo);
-        USRTOKEN = readFile(loginNo + "_AccessToken.json");
+       // USRTOKEN = WriteAndReadFile.readFile(loginNo + "_AccessToken.json");
+        token = getSaveData(loginNo + "accessToken").toString();
 
     }
 
@@ -35,7 +36,7 @@ public class JdSharePolicyTest extends SetBaseServer {
     public void getUserSharePolicyTest() throws Exception {
         given().
                 contentType(ContentType.JSON).
-                header("Authorization",USRTOKEN).
+                header("Authorization",token).
         when().
                 get("/jiadao/api/sharedJdPolicy").
         then().
@@ -49,7 +50,7 @@ public class JdSharePolicyTest extends SetBaseServer {
     public void getUserPolicyTest() throws Exception {
         given().
                 contentType(ContentType.JSON).
-                header("Authorization",USRTOKEN).
+                header("Authorization",token).
         when().
                 get("/jiadao/api/jdPolicy").
         then().
